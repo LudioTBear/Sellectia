@@ -71,7 +71,7 @@ label.userData = {
     };
   }
 }
-scene.add(label);
+scene.add(label)
 // </Label>
 // <Markers>
 const markerCount = 4;
