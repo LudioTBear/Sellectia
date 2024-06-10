@@ -1,0 +1,359 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+  font-family: "Nunito", sans-serif;
+  background-color: #f4f4f4;
+}
+
+
+.container-calc {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1em 4em;
+    width: 1000px;
+    max-width: 1200px;
+    background-color: #fff;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgb(0 0 0 / 27%);
+}
+
+.row-calc {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.col-left, .col-right {
+  flex: 1;
+  padding: 20px;
+}
+
+.cCalc__hd {
+  padding: 1rem 2rem;
+  background: red;
+}
+
+.cCalc__hd:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.cCalc__hd .oTitle {
+  margin: 0;
+  padding: 0.8rem 0;
+  color: #fff;
+  font-size: 2.2rem;
+}
+
+.cCalc__graphic {
+  width: 9.6rem;
+  position: absolute;
+  bottom: 3rem;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
+.cCalc__graphic .st0 {
+    fill: transparent;
+    stroke: #1ed1af;
+    stroke-miterlimit: 10;
+}
+
+.cCalc__compare .oForm__label {
+  display: inline-block;
+  margin: 0 1rem 0 0;
+  vertical-align: middle;
+  color: pink;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.cCalc__compare .oForm__select {
+  display: inline-block;
+  max-width: 150px;
+  height: 3.6rem;
+  vertical-align: middle;
+}
+
+.cCalc__compare .oForm__select:after {
+  right: 0.5rem;
+  top: 1.4rem;
+  font-size: 1.8rem;
+}
+
+.cCalc__compare .oForm__select select {
+  height: 3.6rem;
+  font-size: 1.8rem;
+}
+
+.cCalc__graph {
+  height: 500px;
+  z-index: 1;
+  margin: 4.2rem 0 0 0;
+  padding: 3rem 0 11.6rem;
+  position: relative;
+}
+
+.cCalc__graph .oBtn {
+  position: absolute;
+  bottom: -6rem;
+  right: 0;
+}
+
+.cCalc__wrap {
+  position: relative;
+  height: 100%;
+}
+
+.cCalc__bottom {
+    width: 7rem;
+    height: 7rem;
+    position: absolute;
+    bottom: 4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #0d7f68;
+    border-radius: 5rem;
+}
+
+.cCalc__bar {
+    width: 3rem;
+    height: 1%;
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    margin-left: -1.5rem;
+    background: linear-gradient(to bottom, #1ed1af 0%, #0d7f68 100%);
+    transition: height 1s ease-in-out;
+}
+
+.cCalc__bar:after {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 1rem;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: #0d7f68;
+}
+
+.cCalc__resultat {
+  position: absolute;
+  transform: translateY(0%);
+  text-align: right;
+  transition: 1s ease-in-out;
+}
+
+.cCalc__resultat#min1 {
+  margin-top: 20px;
+}
+
+.cCalc__resultat:before {
+  content: "";
+  display: block;
+  width: 2rem;
+  height: 1px;
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  background: #333;
+}
+
+.cCalc__resultat:hover {
+  z-index: 99;
+}
+
+.cCalc__resultat strong {
+  font-weight: 700;
+}
+
+.cCalc__resultat--tu {
+  position: absolute;
+  transform: translateY(0%);
+  text-align: center;
+}
+
+.cCalc__resultat--tu:before {
+  background: var(--secondary-300);
+}
+
+.cCalc__resultat--tu strong {
+  display: block;
+}
+
+.cCalc__resultat--comparar {
+  right: auto;
+  left: 50%;
+  margin: 0 0 0 5.7rem;
+  text-align: left;
+}
+
+.cCalc__resultat--comparar:before {
+  left: auto;
+  right: 100%;
+}
+
+.cCalc .oResultatTitle {
+  margin: 0 !important;
+  margin-left: 3.7rem !important;
+}
+
+.cCalc .oResultatTitle a {
+  color: var(--primary-500);
+}
+
+.cCalc .oResultatTitle a:hover {
+  color: #00adee !important;
+}
+
+.form-container {
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    border-radius: 12px;
+    border: 1px solid #00000026;
+}
+
+.form-container label {
+  display: block;
+  margin-bottom: 10px;
+  font-weight: bold;
+}
+
+.form-container select {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.form-container button:hover {
+    color: #ffffff;
+    box-shadow: 0px 0px 0px 4px rgb(93 244 174 / 24%);
+}
+.form-container button {
+    display: block;
+    cursor: pointer;
+    color: white;
+    width: 100%;
+    font-size: 1.15rem;
+    font-weight: bold;
+    padding: 0.9em 1.5em 0.9em 1.5em;
+    background-image: linear-gradient(145deg, #16eab7 0%, #13aa8d 100%);
+    border-radius: 12px 12px 12px 12px;
+    border: 0;
+    transition: .30s ease-in-out;
+}
+
+/* Media Queries */
+
+/* Escritorio extra grande */
+@media only screen and (min-width: 1200px){
+  .container-calc {
+    width: 1100px;
+  }
+  .row-calc {
+    width: 100%;
+	height: 100%;
+	flex-direction: row;
+  }
+  .cCalc__bar {
+    margin-left: -1.45rem;
+  }
+}
+/* Escritorio grande */
+@media only screen and (min-width: 992px) and (max-width: 1199px){
+  .container-calc {
+    width: 950px;
+  }
+  .row-calc {
+    width: 100%;
+	height: 100%;
+	flex-direction: row;
+  }
+  .cCalc__bar {
+    margin-left: -1.45rem;
+  }
+}
+
+/* Escritorio pequeño / tablet */
+@media only screen and (min-width: 768px) and (max-width: 991px){
+  .container-calc {
+    width: 800px;
+  }
+  .row-calc {
+    width: 100%;
+	height: 100%;
+	flex-direction: column;
+  }
+  .col-left, .col-right {
+  flex: 0;
+  padding: 20px;
+  }
+  .cCalc__bar {
+    margin-left: -1.45rem;
+  }
+}
+
+/* Tablets y phablets */
+@media only screen and (min-width: 576px) and (max-width: 767px){
+  .container-calc {
+    width: 800px;
+  }
+  .row-calc {
+    width: 100%;
+	height: 100%;
+	flex-direction: column;
+  }
+  .col-left, .col-right {
+  flex: 0;
+  padding: 20px;
+  }
+  .cCalc__bar {
+    margin-left: -1.45rem;
+  }
+}
+
+/* Teléfonos */
+@media only screen and (max-width: 575px){
+  .container-calc {
+    width: 450px;
+  }
+  .row-calc {
+    width: 100%;
+	height: 100%;
+	flex-direction: column;
+  }
+.cCalc__bottom {
+    width: 7rem;
+    height: 7rem;
+    position: absolute;
+    bottom: 4rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #0d7f68;
+    border-radius: 5rem;
+}
+  .col-left, .col-right {
+  flex: 0;
+  padding: 20px;
+  }
+  .cCalc__bar {
+    margin-left: -1.45rem;
+  }
+}

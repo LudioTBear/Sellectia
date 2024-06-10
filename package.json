@@ -1,0 +1,18 @@
+{
+  "name": "3d-globe",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "devDependencies": {
+    "vite": "^5.2.0"
+  },
+  "dependencies": {
+    "gsap": "^3.12.5",
+    "vite-plugin-string": "^1.2.3"
+  }
+}

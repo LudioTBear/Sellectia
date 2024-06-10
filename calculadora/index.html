@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <title>Calculadora Salarial</title>
+    <link href="styles.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="calculadora" class="bg-beige">
+        <div class="container-calc">
+            <div class="row-calc">
+                <div class="col-left">
+                    <div id="resultado" class="cCalc">
+                        <div class="oBox">
+                            <div class="cCalc__graph">
+                                <svg version="1.1" class="cCalc__graphic" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="0 0 138 471" style="enable-background:new 0 0 138 471;" xml:space="preserve">
+                                    <path class="st0" d="M96.5,351.4V35.5c0-14.8-12.1-27-27-27s-27,12.1-27,27v315.9C22.6,361.3,9,381.8,9,405.5
+                                        C9,438.9,36.1,466,69.5,466s60.5-27.1,60.5-60.5C130,381.8,116.4,361.3,96.5,351.4z"></path>
+                                </svg>
+                                <div class="cCalc__wrap">
+                                    <div class="cCalc__resultat jsResultat" id="salarioesp" data-val="35000" style="bottom: 31.8182%;">
+                                        <span class="cCalc__label">España </span><span class="cCalc__label--resp"></span>
+                                        <strong>35.000€</strong>
+                                    </div>
+                                    <div class="cCalc__resultat jsResultat" id="salariolatam" data-val="50000" style="bottom: 100%;">
+										<span class="cCalc__label">Latinoamerica </span><span class="cCalc__label--resp"></span>
+                                        <strong>50.000€</strong>
+                                    </div>
+                                    <div id="bar" class="cCalc__bar" style="height: 100%;"></div>
+                                </div>
+                                <div class="cCalc__bottom"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-right">
+                    <div class="form-container">
+                        <form id="salaryForm">
+                            <label for="cargo">Cargo:</label>
+                            <select id="cargo" name="cargo" onchange="updateSalaryOptions()">
+                                <option value="designer">Diseñador Gráfico</option>
+                                <option value="webDesigner">Diseñador Web</option>
+                                <option value="programmer">Programador</option>
+                            </select>
+                            <label for="latamSalary">Salario en Latinoamérica:</label>
+                            <select id="latamSalary" name="latamSalary">
+                                <!-- Opciones dinámicas -->
+                            </select>
+                            <label for="spainSalary">Salario en España:</label>
+                            <select id="spainSalary" name="spainSalary">
+                                <!-- Opciones dinámicas -->
+                            </select>
+                            <button type="button" onclick="updateSalaries()">Comparar Salarios</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        const salaryOptions = {
+            designer: {
+                latam: [20000, 25000, 30000],
+                spain: [35000, 40000, 45000]
+            },
+            webDesigner: {
+                latam: [22000, 27000, 32000],
+                spain: [37000, 42000, 47000]
+            },
+            programmer: {
+                latam: [24000, 29000, 34000],
+                spain: [39000, 44000, 49000]
+            }
+        };
+
+        function updateSalaryOptions() {
+            const cargo = document.getElementById('cargo').value;
+            const latamSalarySelect = document.getElementById('latamSalary');
+            const spainSalarySelect = document.getElementById('spainSalary');
+
+            latamSalarySelect.innerHTML = '';
+            spainSalarySelect.innerHTML = '';
+
+            salaryOptions[cargo].latam.forEach(salary => {
+                const option = document.createElement('option');
+                option.value = salary;
+                option.textContent = `${salary}€`;
+                latamSalarySelect.appendChild(option);
+            });
+
+            salaryOptions[cargo].spain.forEach(salary => {
+                const option = document.createElement('option');
+                option.value = salary;
+                option.textContent = `${salary}€`;
+                spainSalarySelect.appendChild(option);
+            });
+        }
+
+        function actualizarMarcador(id, valor, maxValor) {
+            var marcador = document.getElementById(id);
+            var porcentaje = (valor / maxValor) * 160;
+            marcador.style.bottom = porcentaje + '%';
+            marcador.querySelector('strong').textContent = valor + '€';
+        }
+
+        function updateSalaries() {
+            var maxValor = 100000; // Suponiendo que 50000 es el valor máximo
+            var latamSalary = parseInt(document.getElementById('latamSalary').value);
+            var spainSalary = parseInt(document.getElementById('spainSalary').value);
+
+            actualizarMarcador('salarioesp', spainSalary, maxValor); // Salario en España
+            actualizarMarcador('salariolatam', latamSalary, maxValor); // Salario en Latinoamérica
+
+            // Actualizar la altura de la barra con animación
+            var bar = document.getElementById('bar');
+            var porcentajeBar = (spainSalary / maxValor) * 160;
+            bar.style.height = porcentajeBar + '%';
+        }
+
+        $(document).ready(function() {
+            updateSalaryOptions();
+            updateSalaries();
+        });
+    </script>
+</body>
+</html>
