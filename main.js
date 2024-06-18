@@ -11,7 +11,7 @@ let renderer = new THREE.WebGLRenderer({
   canvas: document.querySelector("canvas")
 });
 renderer.setSize(canvasContainer.offsetWidth, canvasContainer.offsetHeight);
-renderer.setClearColor(0xfffffff);
+renderer.setClearColor(0xf9f9f9);
 
 let labelRenderer = new CSS2DRenderer();
 labelRenderer.setSize(canvasContainer.offsetWidth, canvasContainer.offsetHeight);
