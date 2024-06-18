@@ -37,7 +37,7 @@ let globalUniforms = {
 
 // Cargar la textura del planeta Tierra
 let textureLoader = new THREE.TextureLoader();
-let earthTexture = textureLoader.load('https://sellectia.com/wp-content/uploads/2024/06/testmap-scaled.jpg'); // Reemplaza con la ruta a tu textura
+let earthTexture = textureLoader.load('https://ludiotbear.github.io/sellectia-landing/main.js'); // Reemplaza con la ruta a tu textura
 
 let rad = 5;
 let geometry = new THREE.SphereGeometry(rad, 32, 32);
