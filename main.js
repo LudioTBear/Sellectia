@@ -187,28 +187,38 @@ let intersections;
 // Se seleccionan los elementos HTML para mostrar la información del marcador (divID, divMag, divCrd).
 let divID = document.getElementById("idNum");
 let divMag = document.getElementById("magnitude");
-// Añadir evento 'mouseleave' al elemento del popup para cerrarlo automáticamente
-label.element.addEventListener('mouseleave', () => {
-  label.element.classList.add('hidden');
-});
 // Se añade un evento para detectar clics (pointerdown) en la ventana.
-window.addEventListener("pointerdown", event => {
+let hidePopupTimeout = null;
+const hideDelay = 200; // Retraso en milisegundos antes de ocultar el popup
 
-  // Se obtienen las dimensiones y la posición del contenedor del canvas.
+// Función para ocultar el popup
+function hidePopup() {
+  label.element.classList.add("hidden");
+}
+
+// Evento de clic para mostrar el popup
+window.addEventListener("pointerdown", event => {
+  // Cancelar cualquier temporizador de ocultación previo
+  if (hidePopupTimeout) {
+    clearTimeout(hidePopupTimeout);
+    hidePopupTimeout = null;
+  }
+
+  // Obtener las dimensiones y la posición del contenedor del canvas.
   const rect = canvasContainer.getBoundingClientRect();
 
-  // Se calculan las coordenadas del clic en el sistema de coordenadas normalizadas del dispositivo.
+  // Calcular las coordenadas del clic en el sistema de coordenadas normalizadas del dispositivo.
   pointer.x = ((event.clientX - rect.left) / rect.width) * 2 - 1;
   pointer.y = -((event.clientY - rect.top) / rect.height) * 2 + 1;
 
-  // Se actualiza el raycaster con la cámara y la posición del puntero.
+  // Actualizar el raycaster con la cámara y la posición del puntero.
   raycaster.setFromCamera(pointer, camera);
 
-  // Se calculan las intersecciones entre el raycaster y los marcadores.
+  // Calcular las intersecciones entre el raycaster y los marcadores.
   intersections = raycaster.intersectObject(markers);
 
   if (intersections.length > 0) {
-    // Si hay intersecciones, se obtiene el índice del marcador intersectado y se muestra la información del marcador en un popup.
+    // Si hay intersecciones, obtener el índice del marcador intersectado y mostrar la información del marcador en un popup.
     let index = intersections[0].instanceId;
 
     // Mostrar mensaje basado en el identificador del marcador
@@ -220,15 +230,38 @@ window.addEventListener("pointerdown", event => {
     divMag.innerHTML = `<b>${marker.mag}</b>`;
     label.position.copy(marker.crd);
     label.element.animate([
-      {width: "0px", height: "0px", marginTop: "0px", marginLeft: "0px"},
-      {width: "230px", height: "50px", marginTop: "-25px", maginLeft: "120px"}
-    ],{
+      { width: "0px", height: "0px", marginTop: "0px", marginLeft: "0px" },
+      { width: "230px", height: "50px", marginTop: "-25px", marginLeft: "120px" }
+    ], {
       duration: 250
     });
     label.element.classList.remove("hidden");
 
     // Girar la cámara hacia la posición del marcador con una animación suave
     animateCameraTo(marker.crd);
+  }
+});
+
+// Evento de movimiento del ratón para ocultar el popup
+window.addEventListener("pointermove", event => {
+  // Verificar si el puntero está fuera del área del popup
+  const rect = label.element.getBoundingClientRect();
+  if (
+    event.clientX < rect.left ||
+    event.clientX > rect.right ||
+    event.clientY < rect.top ||
+    event.clientY > rect.bottom
+  ) {
+    // Iniciar temporizador para ocultar el popup si el cursor está fuera del área
+    if (!hidePopupTimeout) {
+      hidePopupTimeout = setTimeout(hidePopup, hideDelay);
+    }
+  } else {
+    // Cancelar temporizador si el cursor está dentro del área del popup
+    if (hidePopupTimeout) {
+      clearTimeout(hidePopupTimeout);
+      hidePopupTimeout = null;
+    }
   }
 });
 
